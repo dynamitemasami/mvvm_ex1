@@ -22,8 +22,8 @@ Pokemon _$PokemonFromJson(Map<String, dynamic> json) {
 mixin _$Pokemon {
   int get id => throw _privateConstructorUsedError;
   String get name => throw _privateConstructorUsedError;
-  List<String> get types => throw _privateConstructorUsedError;
-  String get imageUrl => throw _privateConstructorUsedError;
+  List<dynamic> get types => throw _privateConstructorUsedError;
+  Map<String, dynamic> get sprites => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -35,7 +35,8 @@ abstract class $PokemonCopyWith<$Res> {
   factory $PokemonCopyWith(Pokemon value, $Res Function(Pokemon) then) =
       _$PokemonCopyWithImpl<$Res, Pokemon>;
   @useResult
-  $Res call({int id, String name, List<String> types, String imageUrl});
+  $Res call(
+      {int id, String name, List<dynamic> types, Map<String, dynamic> sprites});
 }
 
 /// @nodoc
@@ -54,7 +55,7 @@ class _$PokemonCopyWithImpl<$Res, $Val extends Pokemon>
     Object? id = null,
     Object? name = null,
     Object? types = null,
-    Object? imageUrl = null,
+    Object? sprites = null,
   }) {
     return _then(_value.copyWith(
       id: null == id
@@ -68,11 +69,11 @@ class _$PokemonCopyWithImpl<$Res, $Val extends Pokemon>
       types: null == types
           ? _value.types
           : types // ignore: cast_nullable_to_non_nullable
-              as List<String>,
-      imageUrl: null == imageUrl
-          ? _value.imageUrl
-          : imageUrl // ignore: cast_nullable_to_non_nullable
-              as String,
+              as List<dynamic>,
+      sprites: null == sprites
+          ? _value.sprites
+          : sprites // ignore: cast_nullable_to_non_nullable
+              as Map<String, dynamic>,
     ) as $Val);
   }
 }
@@ -84,7 +85,8 @@ abstract class _$$PokemonImplCopyWith<$Res> implements $PokemonCopyWith<$Res> {
       __$$PokemonImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({int id, String name, List<String> types, String imageUrl});
+  $Res call(
+      {int id, String name, List<dynamic> types, Map<String, dynamic> sprites});
 }
 
 /// @nodoc
@@ -101,7 +103,7 @@ class __$$PokemonImplCopyWithImpl<$Res>
     Object? id = null,
     Object? name = null,
     Object? types = null,
-    Object? imageUrl = null,
+    Object? sprites = null,
   }) {
     return _then(_$PokemonImpl(
       id: null == id
@@ -115,11 +117,11 @@ class __$$PokemonImplCopyWithImpl<$Res>
       types: null == types
           ? _value._types
           : types // ignore: cast_nullable_to_non_nullable
-              as List<String>,
-      imageUrl: null == imageUrl
-          ? _value.imageUrl
-          : imageUrl // ignore: cast_nullable_to_non_nullable
-              as String,
+              as List<dynamic>,
+      sprites: null == sprites
+          ? _value._sprites
+          : sprites // ignore: cast_nullable_to_non_nullable
+              as Map<String, dynamic>,
     ));
   }
 }
@@ -130,9 +132,10 @@ class _$PokemonImpl implements _Pokemon {
   const _$PokemonImpl(
       {required this.id,
       required this.name,
-      required final List<String> types,
-      required this.imageUrl})
-      : _types = types;
+      required final List<dynamic> types,
+      required final Map<String, dynamic> sprites})
+      : _types = types,
+        _sprites = sprites;
 
   factory _$PokemonImpl.fromJson(Map<String, dynamic> json) =>
       _$$PokemonImplFromJson(json);
@@ -141,20 +144,25 @@ class _$PokemonImpl implements _Pokemon {
   final int id;
   @override
   final String name;
-  final List<String> _types;
+  final List<dynamic> _types;
   @override
-  List<String> get types {
+  List<dynamic> get types {
     if (_types is EqualUnmodifiableListView) return _types;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(_types);
   }
 
+  final Map<String, dynamic> _sprites;
   @override
-  final String imageUrl;
+  Map<String, dynamic> get sprites {
+    if (_sprites is EqualUnmodifiableMapView) return _sprites;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableMapView(_sprites);
+  }
 
   @override
   String toString() {
-    return 'Pokemon(id: $id, name: $name, types: $types, imageUrl: $imageUrl)';
+    return 'Pokemon(id: $id, name: $name, types: $types, sprites: $sprites)';
   }
 
   @override
@@ -165,14 +173,17 @@ class _$PokemonImpl implements _Pokemon {
             (identical(other.id, id) || other.id == id) &&
             (identical(other.name, name) || other.name == name) &&
             const DeepCollectionEquality().equals(other._types, _types) &&
-            (identical(other.imageUrl, imageUrl) ||
-                other.imageUrl == imageUrl));
+            const DeepCollectionEquality().equals(other._sprites, _sprites));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, id, name,
-      const DeepCollectionEquality().hash(_types), imageUrl);
+  int get hashCode => Object.hash(
+      runtimeType,
+      id,
+      name,
+      const DeepCollectionEquality().hash(_types),
+      const DeepCollectionEquality().hash(_sprites));
 
   @JsonKey(ignore: true)
   @override
@@ -192,8 +203,8 @@ abstract class _Pokemon implements Pokemon {
   const factory _Pokemon(
       {required final int id,
       required final String name,
-      required final List<String> types,
-      required final String imageUrl}) = _$PokemonImpl;
+      required final List<dynamic> types,
+      required final Map<String, dynamic> sprites}) = _$PokemonImpl;
 
   factory _Pokemon.fromJson(Map<String, dynamic> json) = _$PokemonImpl.fromJson;
 
@@ -202,9 +213,9 @@ abstract class _Pokemon implements Pokemon {
   @override
   String get name;
   @override
-  List<String> get types;
+  List<dynamic> get types;
   @override
-  String get imageUrl;
+  Map<String, dynamic> get sprites;
   @override
   @JsonKey(ignore: true)
   _$$PokemonImplCopyWith<_$PokemonImpl> get copyWith =>

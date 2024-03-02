@@ -11,10 +11,8 @@ import '../../data/model/user.dart';
 part 'pokemon_viewmodel.freezed.dart';
 part 'pokemon_viewmodel.g.dart';
 
-
-
 @freezed
-class PokemonViewModelState with _$PokemonViewModelState{
+class PokemonViewModelState with _$PokemonViewModelState {
   factory PokemonViewModelState({
     @Default(AsyncValue.loading()) AsyncValue<User?> pokemoninfo,
     @Default({}) Map<int, Pokemon> pokemap,
@@ -23,25 +21,21 @@ class PokemonViewModelState with _$PokemonViewModelState{
 
 @riverpod
 class PokemonViewModel extends _$PokemonViewModel {
-
   @override
   PokemonViewModelState build() {
     return PokemonViewModelState();
   }
 
   void addPoke(Pokemon poke) {
-    final pokelist = state.pokemap;
-    pokelist[poke.id] = poke;
+    final pokelist = Map<int, Pokemon>.from(state.pokemap);
+    pokelist.addAll({poke.id: poke});
     state = state.copyWith(pokemap: pokelist);
   }
 
-
   Future fetchPoke(int id) async {
     final pokemon = await fetchPokemon(id);
-     addPoke(pokemon);
-     print(pokemon);
+    if (pokemon == null) return;
+    addPoke(pokemon);
+    print(pokemon);
   }
-
-
 }
-
