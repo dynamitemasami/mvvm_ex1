@@ -6,7 +6,7 @@ import 'package:mvvm_ex1/screens/user/pokemon_viewmodel.dart';
 import '../../data/model/pokemon.dart';
 
 class TopPage extends HookConsumerWidget {
-  const TopPage({Key? key}) : super(key: key);
+  const TopPage({super.key});
   @override
   Widget build(BuildContext context, ref) {
     final notifier = ref.watch(pokemonViewModelProvider);
@@ -14,24 +14,21 @@ class TopPage extends HookConsumerWidget {
     return Scaffold(
       body: SafeArea(
         child: ListView.builder(
-          padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 16),
-          itemCount: notifier.pokemap.values.length,
+            padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 16),
+            itemCount: notifier.pokemap.values.length,
             itemBuilder: (context, index) {
               return PokeListItem(
                 poke: notifier.pokemap.values.toList()[index],
               );
-            }        ),
+            }),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: ()async{
+        onPressed: () async {
           await vm.fetchPoke(1);
-
         },
       ),
       bottomNavigationBar: BottomNavigationBar(
-        onTap: (index) => {
-
-        },
+        onTap: (index) => {},
         items: const [
           BottomNavigationBarItem(
             icon: Icon(Icons.list),
@@ -47,9 +44,8 @@ class TopPage extends HookConsumerWidget {
   }
 }
 
-
 class PokeListItem extends StatelessWidget {
-  const PokeListItem({Key? key, required this.poke}) : super(key: key);
+  const PokeListItem({super.key, required this.poke});
   final Pokemon? poke;
   @override
   Widget build(BuildContext context) {
@@ -64,7 +60,7 @@ class PokeListItem extends StatelessWidget {
             image: DecorationImage(
               fit: BoxFit.fitWidth,
               image: NetworkImage(
-                poke!.imageUrl,
+                poke!.sprites.entries.first.value,
               ),
             ),
           ),
@@ -73,7 +69,7 @@ class PokeListItem extends StatelessWidget {
           poke!.name,
           style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
         ),
-        subtitle: Text(poke!.types.first),
+        subtitle: Text(poke?.types.toString() ?? ""),
         trailing: const Icon(Icons.navigate_next),
         onTap: () => {
           /*Navigator.of(context).push(
@@ -88,6 +84,7 @@ class PokeListItem extends StatelessWidget {
     }
   }
 }
+
 const Map<String, Color> pokeTypeColors = {
   "normal": Color(0xFFA8A77A),
   "fire": Color(0xFFEE8130),
@@ -108,4 +105,3 @@ const Map<String, Color> pokeTypeColors = {
   "steel": Color(0xFFB7B7CE),
   "fairy": Color(0xFFD685AD),
 };
-
