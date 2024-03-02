@@ -5,8 +5,8 @@ import 'user_viewmodel.dart';
 class UserScreen extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final user = ref.watch(userProvider);
-    final location = ref.watch(locationProvider);
+    final user = ref.watch(userViewModelProvider);
+    final notifier = ref.read(userViewModelProvider);
 
     return Scaffold(
       appBar: AppBar(
@@ -16,22 +16,27 @@ class UserScreen extends HookConsumerWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            Text('Name: ${user.name}'),
-            Text('Age: ${user.age}'),
-            Text('Location: $location'), // Display the location
+            Text('ID: ${user.userinfo.value?.id}'),
+            Text('Name: ${user.userinfo.value?.name}'),
+            Text('Age: ${user.userinfo.value?.age}'),
+          //  Text('Location: $location'), // Display the location
             ElevatedButton(
               onPressed: () {
-                ref.read(userProvider.notifier).updateUser('Jane Doe', 32);
+                // Example values for demonstration; replace with actual values as needed
+                String newId = "A252";
+                String newName = 'Taro Yoshida'; // Example new name
+                int newAge = 25; // Example new age
+
+                // Retrieve the notifier for your user view model
+                final notifier = ref.read(userViewModelProvider.notifier);
+
+                // Call the updateUser method on your notifier with the new values
+                notifier.updateUser(newId, newName, newAge);
+
               },
               child: Text('Update User'),
             ),
-            ElevatedButton(
-              onPressed: () {
-                // Example of updating the location
-                ref.read(userProvider.notifier).updateLocation('New Location', ref);
-              },
-              child: Text('Update Location'),
-            ),
+
           ],
         ),
       ),

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:mvvm_ex1/screens/user/pokemon_view.dart';
 import 'package:mvvm_ex1/screens/user/user_view.dart';
 
 
@@ -19,7 +20,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: UserScreen(), // Your initial screen that uses Riverpod providers
+      home: TopPage(), // Your initial screen that uses Riverpod providers
     );
   }
 }

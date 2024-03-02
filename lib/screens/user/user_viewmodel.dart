@@ -1,27 +1,35 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import '../../data/model/user.dart';
 
+part 'user_viewmodel.freezed.dart';
+part 'user_viewmodel.g.dart';
 
-// Define a StateProvider for the location string
-final locationProvider = StateProvider<String>((ref) {
-  return 'Initial Location';
-});
 
-final userProvider = StateNotifierProvider<UserViewModel, User>((ref) {
-  return UserViewModel();
-});
 
-class UserViewModel extends StateNotifier<User> {
-  UserViewModel() : super(const User(id: '1', name: 'John Doe', age: 30));
+@freezed
+class UserViewModelState with _$UserViewModelState{
+  factory UserViewModelState({
+    @Default(AsyncValue.loading()) AsyncValue<User?> userinfo,
+  }) = _UserViewModelState;
+}
 
-  // Method to update user remains unchanged
-  void updateUser(String name, int age) {
-    state = state.copyWith(name: name, age: age);
+@riverpod
+class UserViewModel extends _$UserViewModel {
+
+  @override
+  UserViewModelState build() {
+    return UserViewModelState();
   }
-
-  // You might want to add methods here that interact with the new location state
-  void updateLocation(String newLocation, WidgetRef ref) {
-    ref.read(locationProvider.notifier).state = newLocation;
+  void updateUser(String id,String name, int age) {
+    final newUser = User(id: id, name: name, age: age);
+    state = state.copyWith(
+      userinfo: AsyncValue.data(newUser),
+    );
   }
 }
+
