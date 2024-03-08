@@ -32,10 +32,12 @@ class PokemonViewModel extends _$PokemonViewModel {
     state = state.copyWith(pokemap: pokelist);
   }
 
-  Future fetchPoke(int id) async {
-    final pokemon = await fetchPokemon(id);
-    if (pokemon == null) return;
-    addPoke(pokemon);
-    print(pokemon);
+  Future fetchPoke() async {
+    for (var i =1; i<100;i++) {
+      final pokemon = await fetchPokemon(i);
+      if (pokemon == null) return;
+      addPoke(pokemon);
+    };
+
   }
 }

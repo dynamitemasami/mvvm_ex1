@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:mvvm_ex1/data/api/http_request.dart';
 import 'package:mvvm_ex1/screens/user/pokemon_viewmodel.dart';
@@ -7,10 +8,16 @@ import '../../data/model/pokemon.dart';
 
 class TopPage extends HookConsumerWidget {
   const TopPage({super.key});
+
   @override
   Widget build(BuildContext context, ref) {
     final notifier = ref.watch(pokemonViewModelProvider);
     final vm = ref.read(pokemonViewModelProvider.notifier);
+
+    useEffect((){
+      vm.fetchPoke();
+    });
+
     return Scaffold(
       body: SafeArea(
         child: ListView.builder(
@@ -24,7 +31,7 @@ class TopPage extends HookConsumerWidget {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () async {
-          await vm.fetchPoke(1);
+
         },
       ),
       bottomNavigationBar: BottomNavigationBar(
